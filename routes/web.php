@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\recetaController;
 use App\Http\Controllers\ingredienteController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,3 +25,9 @@ Route::delete('/receta/{id}', [RecetaController::class, 'destroy'])->name('recet
 Route::get('receta/{id}/edit', [RecetaController::class, 'edit'])->name('receta.edit');
 
 Route::put('receta/{id}', [RecetaController::class, 'update'])->name('receta.update');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/receta', [RecetaController::class, 'index'])->name('receta.index');
+});
+

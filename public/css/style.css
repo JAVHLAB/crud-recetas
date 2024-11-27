@@ -134,6 +134,14 @@ img {
     color: var(--blanco);
 }
 
+.navegacion__enlace_footer {
+    display: block;
+    text-align: right;
+    font-size: 1.8rem;
+    color: var(--blanco);
+}
+
+
 @media (min-width: 768px) {
     .contenido-principal {
         display: grid;
@@ -231,6 +239,13 @@ img {
 .footer {
     background-color: var(--negro);
     padding-bottom: 3rem;
+}
+
+.footer_main {
+    background-color: var(--negro);
+    /*padding-bottom: 3rem;*/
+    padding-bottom: 7rem;
+    
 }
 
 /* sobre nosotros -------------------------------------*/
