@@ -27,8 +27,12 @@
             <form action="{{ route('receta.destroy', $receta->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE') <!-- Esto indica que el formulario está enviando una solicitud DELETE -->
-                <button type="submit" class="boton boton--secundario">Eliminar</button>
+                <button type="submit" class="boton boton--secundario" 
+                    onclick="return confirm('¿Estás seguro de que deseas eliminar esta receta?')">
+                    Eliminar
+                </button>
             </form>
+
         </div>
     </div>
 </main>

@@ -31,3 +31,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/receta', [RecetaController::class, 'index'])->name('receta.index');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard'); // Asegúrate de que exista una vista llamada "dashboard.blade.php"
+})->name('dashboard')->middleware(['auth']);

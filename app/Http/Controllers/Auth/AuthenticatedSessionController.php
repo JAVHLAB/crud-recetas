@@ -13,7 +13,6 @@ class AuthenticatedSessionController extends Controller
     /**
      * Redirigir a donde el usuario necesita ir después de iniciar sesión.
      *
-     * @return string
      */
     protected function redirectTo()
     {

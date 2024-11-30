@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\receta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class recetaController extends Controller
@@ -14,8 +16,9 @@ class recetaController extends Controller
      */
     public function index()
     {
-        $receta = receta::all(); // Obtén todas las recetas
-        return view('index', compact('receta')); // Pasa las recetas a la vista
+        // Mostrar solo las recetas del usuario autenticado
+        $receta = Receta::where('user_id', Auth::id())->get();
+        return view('index', compact('receta'));
     }
 
     /**
@@ -31,24 +34,34 @@ class recetaController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        // Validar los datos del formulario
+        $request->validate([
             'nombre' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'ingredientes' => 'required|string',
-            'instrucciones' => 'required|string',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validar la imagen
+            'descripcion' => 'nullable|string',
+            'ingredientes' => 'nullable|string',
+            'instrucciones' => 'nullable|string',
+            'imagen' => 'nullable|image|max:2048', // Validación para la imagen
         ]);
-    
-        // Subir la imagen al sistema de archivos
+
+        // Crear una nueva receta con los datos del formulario
+        $receta = new Receta();
+        $receta->nombre = $request->input('nombre');
+        $receta->descripcion = $request->input('descripcion');
+        $receta->ingredientes = $request->input('ingredientes');
+        $receta->instrucciones = $request->input('instrucciones');
+        $receta->user_id = Auth::id(); // Asignar el ID del usuario autenticado
+
+        // Manejo de la imagen (si se sube una)
         if ($request->hasFile('imagen')) {
-            $rutaImagen = $request->file('imagen')->store('imagenes_recetas', 'public');
-            $validated['imagen'] = $rutaImagen;
+            $path = $request->file('imagen')->store('recetas', 'public');
+            $receta->imagen = $path;
         }
-    
-        // Crear la receta
-        receta::create($validated);
-    
-        return redirect()->route('receta.index')->with('success', '¡Receta creada exitosamente!');
+
+        // Guardar la receta en la base de datos
+        $receta->save();
+
+        // Redirigir a la lista de recetas con un mensaje de éxito
+        return redirect()->route('receta.index')->with('success', 'Receta creada exitosamente.');
     }
 
     /**

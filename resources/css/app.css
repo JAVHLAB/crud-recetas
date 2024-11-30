@@ -5,3 +5,11 @@
 [x-cloak] {
     display: none;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'PT Sans', sans-serif; /* Tu tipografía preferida */
+    font-size: inherit; /* Restaura el tamaño si se modificó */
+    font-weight: normal; /* Ajusta el peso */
+    margin: 0; /* Ajusta márgenes si necesario */
+    color: inherit; /* Mantén el color original */
+}

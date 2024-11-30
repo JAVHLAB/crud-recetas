@@ -10,7 +10,7 @@
     @csrf
 
     <div class="campo">
-        <label class="campo__label" for="nombre">Nombre de la receta</label>
+        <label class="campo__label" for="nombre">Nombre</label>
         <input class="campo__field" type="text" placeholder="Nombre de la receta" id="nombre" name="nombre" value="{{ old('nombre') }}">
     </div>
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="campo">
-        <label class="campo__label" for="imagen">Imagen de la receta</label>
+        <label class="campo__label" for="imagen">Imagen</label>
         <input class="campo__field" type="file" id="imagen" name="imagen" required> 
         @if ($errors->has('imagen'))
         <div class="alert alert-danger">
